@@ -1,0 +1,84 @@
+module timer (
+    input  wire             clk,
+    input  wire             rst_n,
+    input  wire   [1:0]     clk_freq,
+    input  wire             timer_enable,
+    input  wire             timer_pause,
+    output reg    [4:0]     timer_Minutes
+);
+
+ reg  [6:0]     final_value;             //the large number I need is 8*10^6 but scaled to 80 only
+ reg  [6:0]     edges_counter_internal; //counter for edges that incremented by 1 every active edge for clock count from 0 to {10,20,40,80} 
+ reg  [6:0]     edges_counter;         //this register for make edges_counter_internal is reg
+ wire           final_value_flag;      //declare a flag to control the counter  
+
+ 
+
+
+ // case to select the the final value of counter to reach one second 
+  always @(*) 
+     begin
+       case(clk_freq)
+        2'b00: begin
+                final_value=7'b0001010; //10 counts and  without scaling you must *10^5
+               end
+        2'b01: begin
+                final_value=7'b0010100; //20 counts and  without scaling you must *10^5
+               end     
+        2'b10: begin
+                final_value=7'b0101000;  //40 counts and  without scaling you must *10^5
+               end
+        2'b11: begin
+                final_value=7'b101000; //80 counts and  without scaling you must *10^5
+               end   
+       endcase
+     end
+
+// 
+ always @(posedge clk or negedge rst_n)
+  begin
+    if (!rst_n)
+     begin
+      edges_counter<='b0; 
+     end 
+    else 
+     begin
+      edges_counter<=edges_counter_internal;
+     end
+  end
+// always block to declare rtl of counter to count one second depend on frequency
+    always @(*) 
+     begin
+        if (timer_pause&&timer_enable) 
+         begin
+          edges_counter_internal=edges_counter;
+         end
+        else  if(timer_enable&&!final_value_flag) 
+         begin
+          edges_counter_internal=edges_counter+1'b1;
+         end
+         else
+          begin 
+            edges_counter_internal='b0;
+          end
+     end 
+// always block to declare rtl of counter to count minutes 
+   always@(*)
+    begin
+        if(timer_enable&&final_value_flag) 
+         begin
+          timer_Minutes=timer_Minutes+1'b1;
+         end
+        else if ((timer_enable) &&(timer_pause||(!final_value_flag)))
+         begin
+          timer_Minutes=timer_Minutes;
+         end
+         else
+          begin 
+            timer_Minutes='b0;
+          end  
+    end  
+//assert final_value_flag with 1 if counter equal final value to set counter again to zero and count a new second
+assign final_value_flag =(edges_counter_internal==final_value);
+
+endmodule

@@ -1,0 +1,84 @@
+m255
+K3
+13
+cModel Technology
+Z0 dC:\altera\13.0sp1
+vFSM
+Z1 !s100 J<AecN=2Lmo8XPIKcMO_l0
+Z2 I9dn3?a84^g6he>KdmBP8C0
+Z3 VQlR:Ldc86zkE]825THZa11
+Z4 dD:\Digital\projects_desgin\mixel_assignment\RTL
+Z5 w1660055039
+Z6 8D:/Digital/projects_desgin/mixel_assignment/RTL/FSM.v
+Z7 FD:/Digital/projects_desgin/mixel_assignment/RTL/FSM.v
+L0 2
+Z8 OV;L;10.1d;51
+r1
+31
+Z9 !s90 -reportprogress|300|-work|work|D:/Digital/projects_desgin/mixel_assignment/RTL/FSM.v|
+Z10 o-work work -O0
+Z11 n@f@s@m
+Z12 !s108 1660059984.650000
+Z13 !s107 D:/Digital/projects_desgin/mixel_assignment/RTL/FSM.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vTESTBENCH
+!i10b 1
+!s100 ZCR349;;Z<]mR0haL;IXS0
+I0dhZkRo5jE@i<:<FS[JUK1
+Z14 Vh3?1C89gGK[MkibPMJ[Tj3
+dd:\Digital\projects_desgin\mixel_assignment\RTL
+w1660059993
+8d:\Digital\projects_desgin\mixel_assignment\RTL\TESTBENCH.v
+Fd:\Digital\projects_desgin\mixel_assignment\RTL\TESTBENCH.v
+L0 3
+R8
+r1
+!s85 0
+31
+!s108 1660059993.208000
+!s107 d:\Digital\projects_desgin\mixel_assignment\RTL\TESTBENCH.v|
+!s90 -nologo|-work|work|d:\Digital\projects_desgin\mixel_assignment\RTL\TESTBENCH.v|
+!s101 -O0
+o-nologo -work work -O0
+Z15 n@t@e@s@t@b@e@n@c@h
+vtimer
+Z16 !s100 7;6]fgm:PDhe9gIO?0:gK3
+Z17 IB1=82oJmM^ZV7N_;CnKV]3
+Z18 VjVd:ocge7]3dCljlHNKfh0
+R4
+Z19 w1660051327
+Z20 8D:/Digital/projects_desgin/mixel_assignment/RTL/timer.v
+Z21 FD:/Digital/projects_desgin/mixel_assignment/RTL/timer.v
+L0 1
+R8
+r1
+31
+Z22 !s90 -reportprogress|300|-work|work|D:/Digital/projects_desgin/mixel_assignment/RTL/timer.v|
+R10
+Z23 !s108 1660059984.844000
+Z24 !s107 D:/Digital/projects_desgin/mixel_assignment/RTL/timer.v|
+!i10b 1
+!s85 0
+!s101 -O0
+vTOP_MODULE
+Z25 !s100 MT>i0bh@XjDhCJzBk0g;X2
+Z26 IOTD1Z6=D^K[Y_ib=5hTbY0
+Z27 V0Z=cJe^Ef`64_ISiO7YdZ1
+R4
+Z28 w1660055043
+Z29 8D:\Digital\projects_desgin\mixel_assignment\RTL\TOP_MODULE.v
+Z30 FD:\Digital\projects_desgin\mixel_assignment\RTL\TOP_MODULE.v
+L0 1
+R8
+r1
+31
+Z31 !s90 -reportprogress|300|-work|work|D:\Digital\projects_desgin\mixel_assignment\RTL\TOP_MODULE.v|
+R10
+Z32 n@t@o@p_@m@o@d@u@l@e
+Z33 !s108 1660059984.948000
+Z34 !s107 D:\Digital\projects_desgin\mixel_assignment\RTL\TOP_MODULE.v|
+!i10b 1
+!s85 0
+!s101 -O0

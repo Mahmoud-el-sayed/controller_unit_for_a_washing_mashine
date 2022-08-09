@@ -1,0 +1,128 @@
+module FSM (
+    input   wire             clk,
+    input   wire             rst_n,
+    input   wire             coin_in, 
+    input   wire             double_wash,
+    input  wire              timer_pause,
+    input   wire   [4:0]     timer, 
+    output  reg              timer_enable,
+    output  reg              pause_flag,
+    output  wire             wash_done 
+);
+
+//declare states using gray style 
+    localparam    [2:0]     Idle=3'b000,
+                            Filling_Water=3'b001,
+                            Washing=3'b011,
+                            Rinsing=3'b010,
+                            Spinning=3'b110;
+
+
+     reg   [2:0]   next_state;
+     reg   [2:0]   current_state;
+
+
+ //next transation with active low reset
+  always@(posedge clk or negedge rst_n)
+   begin 
+    if(!rst_n)
+     begin
+      current_state<=Idle;
+     end
+    else
+     begin
+      current_state<=next_state;
+     end
+   end
+
+// next state logic 
+ always@(*) 
+  begin 
+    case(current_state)
+     Idle    :  begin
+                 if(coin_in)
+                  begin
+                   next_state=Filling_Water;
+                  end
+                 else
+                  begin
+                   next_state=Idle;
+                  end
+                end
+ Filling_Water: begin
+                 if(timer==5'b00010)
+                  begin
+                   next_state=Washing;
+                  end
+                 else
+                  begin
+                   next_state=Filling_Water;
+                  end
+                end
+  Washing  :    begin
+                 if((timer==5'b00111)||(timer==5'b01110))
+                  begin
+                   next_state=Rinsing;
+                  end
+                 else
+                  begin
+                   next_state=Washing;
+                  end
+                end
+  Rinsing  :    begin
+                 if ((timer==5'b01001)&&(double_wash))
+                  begin
+                   next_state=Washing;
+                  end
+                 else if (((timer==5'b01001)&&(!double_wash))||((timer==5'b10000)&&(double_wash)))
+                  begin
+                   next_state=Spinning;
+                  end
+                 else 
+                  begin
+                   next_state=Rinsing;
+                  end
+                end
+  Spinning :    begin
+                 if((timer==5'b10001)||(timer==5'b01010))
+                  begin
+                   next_state=Idle;
+                  end
+                 else
+                  begin
+                   next_state=Spinning;
+                  end
+                end
+    endcase
+  end
+
+// output logic 
+ always@(*)
+  begin 
+    timer_enable=1'b1;
+    wash_done=1'b0;
+    pause_flag=1'b0;
+    case(current_state)
+     Idle    :  begin
+                 timer_enable=1'b0;
+                 wash_done=1'b0;
+                end
+
+  Spinning :    begin
+                 if(timer_pause)
+                  begin
+                   pause_flag=1'b1;
+                  end
+                 else
+                  begin
+                   pause_flag=1'b0;
+                  end
+                end
+  default:      begin
+                 timer_enable=1'b1;
+                 wash_done=1'b0;
+                 pause_flag=1'b0;
+                end
+    endcase
+  end
+endmodule
